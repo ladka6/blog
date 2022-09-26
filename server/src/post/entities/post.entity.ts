@@ -1,28 +1,34 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import * as mongoose from 'mongoose';
-import { User } from "src/user/entities/user.entity";
+import { User } from 'src/user/entities/user.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Comment } from './comment.entitiy';
 
-export type PostDocument = Post & Document;
-
-@Schema()
+@Entity()
 export class Post {
-  @Prop({type: mongoose.Schema.Types.ObjectId, ref:'User'})
-  user: User
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Prop()
-  header: String;
+  @Column({ default: 0 })
+  like: number;
 
-  @Prop()
-  contet: String;
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments: Comment[];
 
-  @Prop()
-  comment: String;
-
-  @Prop()
+  @CreateDateColumn()
   date: Date;
 
-  @Prop()
-  like: Number;
-}
+  @ManyToOne(() => User, (user) => user.posts)
+  user: User;
 
-export const PostSchema = SchemaFactory.createForClass(Post);
+  @Column()
+  content: string;
+
+  @Column()
+  header: string;
+}

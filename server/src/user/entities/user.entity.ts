@@ -1,33 +1,33 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import mongoose from "mongoose";
-import { Post } from "src/post/entities/post.entity";
+import { Exclude } from 'class-transformer';
+import { Post } from 'src/post/entities/post.entity';
+import {
+  AfterInsert,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
-export type UserDocument = User & Document;
-
-@Schema()
+@Entity()
 export class User {
-  @Prop()
-  id: Number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Prop()
-  username: String;
+  @Column()
+  email: string;
 
-  @Prop()
-  password: String;
+  @Exclude()
+  @Column()
+  password: string;
 
-  @Prop()
-  email: String
+  @Column()
+  user_name: string;
 
-  @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref:'Post'}]})
-  posts: Post[]
-}
-
-export const UserSchema = SchemaFactory.createForClass(User);
-
-export interface IUser {
-  id: Number;
-  username: String;
-  password: String;
-  email: String;
+  @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
+
+  @AfterInsert()
+  afterInsert() {
+    console.log(this.posts);
+  }
 }

@@ -1,0 +1,54 @@
+
+### Create a user
+POST http://localhost:8080/user/signup
+Content-Type: application/json
+
+{
+  "user_name": "Ege Erdal 5",
+  "email": "test3@test.com",
+  "password": "test2"
+}
+
+### Sign In
+POST http://localhost:8080/user/signin
+Content-Type: application/json
+
+{
+  "user_name": "Ege Erdal",
+  "email": "test@test.com",
+  "password": "test"
+}
+
+
+### Find the currently signed in user
+GET http://localhost:8080/user/whoami
+
+### Denme
+GET http://localhost:8080/user/deneme
+
+### Get all users
+GET http://localhost:8080/user
+
+
+### Find a user by id
+GET  http://localhost:8080/user/1
+
+
+### Update a user
+PATCH http://localhost:8080/user/1
+Content-Type: application/json
+
+{
+  "user_name": "efsa",
+  "password": "efsa123",
+  "email": "efsa@efsa.com"
+}
+
+
+### Delete a user
+DELETE http://localhost:8080/user/6
+
+
+### Find a user by username and email
+
+GET http://localhost:8080/user/query?user_name=ege&email=ege@ege.com

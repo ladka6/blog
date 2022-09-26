@@ -1,0 +1,37 @@
+### Sign In
+POST http://localhost:8080/user/signin
+Content-Type: application/json
+
+{
+  "user_name": "Ege Erdal",
+  "email": "test@test.com",
+  "password": "test"
+}
+
+### 
+GET http://localhost:8080/user
+
+###
+GET http://localhost:8080/post
+
+### Publish post
+POST http://localhost:8080/post/publish
+Content-Type: application/json
+
+{
+  "header": "Deneme Post 6",
+  "content": "Deneme Content 6"
+}
+
+### Like post 
+PATCH http://localhost:8080/post/8
+
+
+###Create comment to a post ??? 
+POST http://localhost:8080/post/comment/1
+Content-Type: application/json
+
+{
+  "content" : "Deneme comment"
+}
+
