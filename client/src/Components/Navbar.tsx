@@ -1,11 +1,11 @@
 import React from "react";
 
 interface INavbarProps {
-  user: string;
+  logged: boolean;
 }
 
-function Navbar({user}: INavbarProps) {
-  if(!user) {
+function Navbar({logged}: INavbarProps) {
+  if(!logged) {
     return (
       <div className="mx-auto px-5 py-5 bg-gray-800">
         <nav className="flex items-center justify-between text-white font-bold text-2xl">
@@ -37,6 +37,9 @@ function Navbar({user}: INavbarProps) {
             </div>
             <div className="p-3 hover:bg-gray-600 hover:rounded-md">
               <a href="/user/signup">See your posts</a>
+            </div>
+            <div className="p-3 hover:bg-gray-600 hover:rounded-md">
+              <a href="/user/signout">Sign Out</a>
             </div>
           </div>
         </nav>

@@ -3,10 +3,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 interface ICreatePostProps {
-  user: string;
+  setLogged: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CreatePost = ({user}: ICreatePostProps) => {
+
+const CreatePost = ({setLogged}: ICreatePostProps) => {
 
   const [header, setHeader] = useState<string>('');
   const [content, setContent] = useState<string>('');
@@ -17,24 +18,26 @@ const CreatePost = ({user}: ICreatePostProps) => {
       "header":`${header}`,
       "content": `${content}`,
     });
-    
+    const axiosheader = {
+      'Content-Type': 'application/json'
+    }
     var config = {
       method: 'post',
-      url: 'http://localhost:8080/post/publish',
+      url: '/post/publish',
       headers: {
         'Content-Type': 'application/json'
       },
       data: data
     };
+
+    axios.post('/post/publish',data,{
+      headers:axiosheader,
+      withCredentials: true,
+    }).then(function(req) {
+      navigate('/');
+      setLogged(true);
+    }).catch(function(err) { console.log(err);})
     
-    axios(config)
-      .then(function (response) {
-        //setUser(response.data.user_name);
-        navigate('/');
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
     
   }
 

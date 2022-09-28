@@ -47,13 +47,7 @@ export class PostService {
         user: true,
       },
     });
-    // const returnData: any = posts.map((value: Post, index: number) => {
-    //   //value.user = await this.userRepo.findOne({where: value.})
-    //   console.log(value.user);
-    //   console.log(value.comments);
-    // });
-    //console.log(returnData);
-    // console.log(posts);
+
     return posts;
   }
 

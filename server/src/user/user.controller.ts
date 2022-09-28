@@ -18,6 +18,7 @@ import { AuthService } from './auth.service';
 import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from './entities/user.entity';
+import { Request } from 'express';
 
 @Controller('user')
 @UseInterceptors(CurrentUserInterceptor)
@@ -55,14 +56,8 @@ export class UserController {
   }
 
   @Get('/whoami')
-  currentUser(@CurrentUser() user: User) {
+  currentUser(@CurrentUser() user: User, @Session() session: any) {
     return user;
-  }
-
-  @Get('/deneme')
-  deneme(@Req() request) {
-    console.log(request.session); // or "request.cookies['cookieKey']"
-    // or console.log(request.signedCookies);
   }
 
   @Get()

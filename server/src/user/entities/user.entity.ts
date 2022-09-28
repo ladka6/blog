@@ -28,6 +28,6 @@ export class User {
 
   @AfterInsert()
   afterInsert() {
-    console.log(this.posts);
+    this.posts;
   }
 }

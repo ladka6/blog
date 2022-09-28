@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import  {useNavigate } from 'react-router-dom'
-// import Session from 'react-session-api'
-var Session = require('react-session-api');
 
-interface ISignIneProps {
-  setUser: React.Dispatch<React.SetStateAction<string>>;
+
+interface ISignInProps {
+  setLogged: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SignIn = ({setUser}: ISignIneProps, ) => {
+const SignIn = ({setLogged}: ISignInProps, ) => {
 
   const navigate = useNavigate();
   const [username, setUsername] = useState<string>('');
@@ -22,28 +21,18 @@ const SignIn = ({setUser}: ISignIneProps, ) => {
       "email": `${email}`,
       "password": `${passowrd}`
     });
-    
-    var config = {
-      method: 'post',
-      url: 'http://localhost:8080/user/signin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: data
+    const headers = {
+      'Content-Type': 'application/json'
     };
-    
-    axios(config)
-      .then(function (response) {
-        setUser(response.data.user_name);
-        //Session.set('ege','ege1');
-        const deneme = Session.items();
-        console.log(deneme);
-        //navigate('/');
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    
+    axios.post('/user/signin',data,
+    {headers: headers, withCredentials: true}).then(function (response) {
+          (JSON.stringify(response.data));
+          setLogged(true);
+          navigate('/');
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
   }
 
   return (

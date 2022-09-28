@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import  { redirect, useNavigate } from 'react-router-dom'
-const SignUp = () => {
+
+interface ISignUpProps {
+  setLogged: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const SignUp = ({setLogged}: ISignUpProps) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -15,26 +20,17 @@ const SignUp = () => {
       "password": `${passowrd}`
     });
     
-    var config = {
-      method: 'post',
-      url: 'http://localhost:8080/user/signup',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: data
+    const headers = {
+      'Content-Type': 'application/json'
     };
-    
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        navigate('/');
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    
-    // const res = await axios.get('http://localhost:8080/user');
-    // console.log(res.data);
+
+    axios.post('/user/signup',data,{headers: headers, withCredentials: true}).
+    then(function(res) {
+      setLogged(true);
+      navigate('/');
+    }).catch(function(err) {
+      console.log(err);
+    });
   }
 
   return (

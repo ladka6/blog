@@ -5,14 +5,15 @@ import Navbar from './Navbar';
 import Cookies from 'js-cookie';
 
 interface IMainPageProps {
-  user: string;
+  logged: boolean;
 }
 
-function MainPage({user}: IMainPageProps) {
+function MainPage({logged}: IMainPageProps) {
   const [posts, setPosts] = useState<IPost[]>([]);
 
   useEffect(() => {
     fetchData();
+    (Cookies.get())
   },[]);
 
   const fetchData = async () => {
@@ -20,11 +21,32 @@ function MainPage({user}: IMainPageProps) {
     setPosts(req.data);
   }
 
+  const  onFormSubmit = async () => {
+    var config = {
+      method: 'GET',
+      url: '/user/whoami',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      
+    };
+    
+    axios(config)
+      .then(function (response) {
+        console.log(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
+  }
+
+
   return (
-    <React.Fragment>
-      Welcome {user}
-      <Navbar user={user}/>
+    <React.Fragment> 
+      <Navbar logged={logged}/>
       <PostBox posts={posts}/>
+      <button onClick={onFormSubmit}>WhoAmI</button>
     </React.Fragment>
     
   )

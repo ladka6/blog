@@ -28,7 +28,7 @@ export class PostController {
 
   @Post('/publish')
   create(@Body() createPostDto: CreatePostDto, @CurrentUser() user: User) {
-    console.log(user);
+    user;
     return this.postService.publishPost(
       createPostDto.header,
       createPostDto.content,

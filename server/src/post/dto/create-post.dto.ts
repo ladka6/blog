@@ -7,6 +7,4 @@ export class CreatePostDto {
 
   @IsString()
   content: string;
-
-  // user: User;
 }

@@ -9,9 +9,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  @Get('/deneme')
-  deneme(@Req() request) {
-    console.log(request.session); // or "request.cookies['cookieKey']"
-    // or console.log(request.signedCookies);
-  }
 }

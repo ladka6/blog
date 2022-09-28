@@ -3,14 +3,13 @@ import React from "react";
 const PostBox = (props: {posts: IPost[]}) => {
   
 
-  const deneme = props.posts.map((post:IPost,index:number) => {
-    //console.log(post);
+  const showBoxes = props.posts.map((post:IPost,index:number) => {
     return (
       <div className='flex flex-col px-5 mt-10 justify-center' key={index}>
         <div className='border-4 rounded-md text-center'>
           <div>{post.header}</div>
           <div>{post.content}</div>
-          {/* <div>{post.user.email}</div> */}
+          <div>{post.user.email}</div>
         </div>
       </div>
 
@@ -18,7 +17,7 @@ const PostBox = (props: {posts: IPost[]}) => {
   })
   return (
     <div className="grid grid-cols-2">
-      {deneme}
+      {showBoxes}
     </div>
    
   );
