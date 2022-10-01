@@ -29,6 +29,6 @@ export class Post {
   @Column()
   content: string;
 
-  @Column()
+  @Column('longtext')
   header: string;
 }

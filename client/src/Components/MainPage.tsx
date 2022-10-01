@@ -6,9 +6,10 @@ import Cookies from 'js-cookie';
 
 interface IMainPageProps {
   logged: boolean;
+  setLogged: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function MainPage({logged}: IMainPageProps) {
+function MainPage({logged, setLogged}: IMainPageProps) {
   const [posts, setPosts] = useState<IPost[]>([]);
 
   useEffect(() => {
@@ -21,32 +22,12 @@ function MainPage({logged}: IMainPageProps) {
     setPosts(req.data);
   }
 
-  const  onFormSubmit = async () => {
-    var config = {
-      method: 'GET',
-      url: '/user/whoami',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      
-    };
-    
-    axios(config)
-      .then(function (response) {
-        console.log(response.data)
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    
-  }
 
 
   return (
     <React.Fragment> 
-      <Navbar logged={logged}/>
+      <Navbar logged={logged} setLogged={setLogged}/>
       <PostBox posts={posts}/>
-      <button onClick={onFormSubmit}>WhoAmI</button>
     </React.Fragment>
     
   )
@@ -70,10 +51,3 @@ type User = {
   password: string;
   user_name: string;
 }
-
-// interface IUser {
-//   email: string;
-//   id: number;
-//   password: string;
-//   user_name: string;
-// }

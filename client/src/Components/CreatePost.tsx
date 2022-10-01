@@ -21,15 +21,6 @@ const CreatePost = ({setLogged}: ICreatePostProps) => {
     const axiosheader = {
       'Content-Type': 'application/json'
     }
-    var config = {
-      method: 'post',
-      url: '/post/publish',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: data
-    };
-
     axios.post('/post/publish',data,{
       headers:axiosheader,
       withCredentials: true,

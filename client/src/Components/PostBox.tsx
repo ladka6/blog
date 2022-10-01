@@ -4,14 +4,26 @@ const PostBox = (props: {posts: IPost[]}) => {
   
 
   const showBoxes = props.posts.map((post:IPost,index:number) => {
+    const [date] = new Date(post.date.toString()).toISOString().split('T');
     return (
-      <div className='flex flex-col px-5 mt-10 justify-center' key={index}>
-        <div className='border-4 rounded-md text-center'>
-          <div>{post.header}</div>
-          <div>{post.content}</div>
-          <div>{post.user.email}</div>
+      <div className='container mx-auto p-5 '>
+        <div style={{backgroundColor:'rgb(245 245 245)'}} className='flex flex-row py-5 pl-5 rounded-lg shadow-md'>
+          <div className='flex place-items-center'>
+          <img className="object-cover shadow-lg rounded-lg group-hover:opacity-75 w-56 h-5/6" src="https://stackdiary.com/140x100.png" alt="Featured Photo"  />
+          </div>
+          <div className='px-5'>
+            <h1 className='text-lg text-bold'>{post.header}</h1>
+            <p>{post.content}</p>
+            <div className='flex flex-row mt-3'>
+              <img className='w-10 h-10 rounded-full' src="https://stackdiary.com/140x100.png" alt="profilepic" />
+              <div className='mx-3'>
+                <a href="">{post.user.user_name}</a>
+                <p className="text-sm text-slate-400">{date}</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+    </div>
 
     );
   })
