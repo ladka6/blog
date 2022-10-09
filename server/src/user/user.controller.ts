@@ -19,9 +19,11 @@ import { CurrentUserInterceptor } from './interceptors/current-user.interceptor'
 import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from './entities/user.entity';
 import { Request } from 'express';
+import { UserActivated } from './decorators/user-activated.decorator';
+import { UserActivatedInterceptor } from './interceptors/user-activated.interceptor';
 
 @Controller('user')
-@UseInterceptors(CurrentUserInterceptor)
+@UseInterceptors(CurrentUserInterceptor, UserActivatedInterceptor)
 export class UserController {
   constructor(
     private readonly userService: UserService,
@@ -52,12 +54,34 @@ export class UserController {
       body.password,
     );
     session.userId = user.id;
+    session.acitavted = false;
     return user;
+  }
+
+  @Post('/activate')
+  async activate(
+    @Body() body: any,
+    @CurrentUser() user: User,
+    @Session() session: any,
+  ) {
+    const activateUser = this.authService.activate(
+      user.user_name,
+      user.email,
+      body.value,
+    );
+    session.acitavted = true;
+    return activateUser;
   }
 
   @Get('/whoami')
   currentUser(@CurrentUser() user: User, @Session() session: any) {
     return user;
+  }
+
+  @Get('/deneme')
+  isActivated(@UserActivated() activated: boolean, @Session() session: any) {
+    console.log(activated);
+    return activated;
   }
 
   @Get()
@@ -71,7 +95,8 @@ export class UserController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string, @UserActivated() user: User) {
+    //console.log(user);
     return this.userService.findOne(parseInt(id));
   }
 
@@ -83,5 +108,15 @@ export class UserController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(parseInt(id));
+  }
+
+  // @Get('/mail')
+  // sendMail() {
+  //   this.authService.sendEmail('deneme');
+  // }
+
+  @Get('/denem')
+  deneme(@UserActivated() user: User) {
+    return user;
   }
 }

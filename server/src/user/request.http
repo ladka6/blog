@@ -4,9 +4,17 @@ POST http://localhost:8080/user/signup
 Content-Type: application/json
 
 {
-  "user_name": "Ege Erdal 5",
-  "email": "test3@test.com",
+  "user_name": "Ege Erdal 0",
+  "email": "ege-erdal1766051@hotmail.com",
   "password": "test2"
+}
+
+### Activate User
+POST http://localhost:8080/user/activate
+Content-Type:  application/json
+
+{
+  "value": 6994
 }
 
 ### Sign In
@@ -52,3 +60,7 @@ DELETE http://localhost:8080/user/6
 ### Find a user by username and email
 
 GET http://localhost:8080/user/query?user_name=ege&email=ege@ege.com
+
+### Send Mail
+
+GET http://localhost:8080/user/mail

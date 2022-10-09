@@ -14,6 +14,15 @@ export class UserService {
     return this.repo.save(user);
   }
 
+  onylCreate(user_name: string, email: string, password: string) {
+    const user = this.repo.create({ user_name, email, password });
+    return user;
+  }
+
+  save(user: User) {
+    return this.repo.save(user);
+  }
+
   findAll() {
     const users = this.repo.find();
     return users;

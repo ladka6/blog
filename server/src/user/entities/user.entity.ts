@@ -2,6 +2,7 @@ import { Exclude } from 'class-transformer';
 import { Post } from 'src/post/entities/post.entity';
 import {
   AfterInsert,
+  BeforeInsert,
   Column,
   Entity,
   OneToMany,
@@ -23,11 +24,14 @@ export class User {
   @Column()
   user_name: string;
 
+  @Column({ default: false })
+  active: boolean;
+
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
 
-  @AfterInsert()
-  afterInsert() {
-    this.posts;
-  }
+  // @AfterInsert()
+  // afterInsert() {
+  //   console.log(this.id);
+  // }
 }
